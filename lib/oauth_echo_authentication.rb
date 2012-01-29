@@ -23,7 +23,7 @@ module OauthEchoAuthentication
       unless provider == WELLKNOWN_PROVIDERS[specified_provider]
         raise AuthError.new('Forbidden: unsupported provider', 403)
       end
-      @current_user = authenticate_with_oauth_echo!
+      @current_oauth_echo_user = authenticate_with_oauth_echo!
     rescue OpenURI::HTTPError => e
       render :json => JSON.parse(e.io.read), :status => e.io.status[0].to_i
     rescue AuthError => e
