@@ -19,7 +19,7 @@ Add this to Gemfile.
       oauth_echo_authenticate_with :twitter
 
       def index
-        render :json => @current_user
+        render :json => @current_oauth_echo_user
       end
     end
 
@@ -30,12 +30,12 @@ Add this to Gemfile.
       before_filter :authenticate
 
       def index
-        render :json => @current_user
+        render :json => @current_oauth_echo_user
       end
 
       private
       def authenticate
-        @current_user = authenticate_with_oauth_echo!
+        @current_oauth_echo_user = authenticate_with_oauth_echo!
         # TODO: process it yourself
       end
     end
