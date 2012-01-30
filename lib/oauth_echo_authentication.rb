@@ -24,6 +24,16 @@ module OauthEchoAuthentication
         raise AuthError.new('Forbidden: unsupported provider', 403)
       end
       @current_oauth_echo_user = authenticate_with_oauth_echo!
+      @omniauth_data = {}
+      @omniauth_data['provider'] = provider
+      if provider == 'twitter'
+        @omniauth_data['uid'] = @current_oauth_echo_user['id'].to_s
+        @omniauth_data['user_info'] = {}
+        @omniauth_data['user_info'] =  @current_oauth_echo_user
+        @omniauth_data['extra'] = {}
+        @omniauth_data['extra']['user_hash'] = @current_oauth_echo_user
+      end
+      
     rescue OpenURI::HTTPError => e
       render :json => JSON.parse(e.io.read), :status => e.io.status[0].to_i
     rescue AuthError => e
