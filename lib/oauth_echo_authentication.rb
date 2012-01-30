@@ -25,8 +25,8 @@ module OauthEchoAuthentication
       end
       @current_oauth_echo_user = authenticate_with_oauth_echo!
       @omniauth_data = {}
-      @omniauth_data['provider'] = specified_provider
-      if specified_provider == :twitter
+      @omniauth_data['provider'] = specified_provider.to_s
+      if specified_provider.to_s == 'twitter' 
         @omniauth_data['uid'] = @current_oauth_echo_user['id'].to_s
         @omniauth_data['user_info'] =  @current_oauth_echo_user
         @omniauth_data['extra'] = {}
